@@ -16,6 +16,8 @@ So its generally your assistant which performs the following actions:
 
 6)Tell Jokes
 
+7)Perform Google Search
+
 
 This program is the outcome of Day 4 on course Specialist in Python ,
 
