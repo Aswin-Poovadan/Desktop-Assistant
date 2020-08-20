@@ -1,4 +1,4 @@
-# Python-Text-Based-ChatBot
+# Python-ChatBot
 This is a program which perform actions on user text commands.
 
 
@@ -21,7 +21,7 @@ This program is the outcome of Day 4 on course Specialist in Python ,
 
 Initiative By IIEC RISE mentored by World Record Holder Mr.VimalDaga sir.
 
-Requirements:
+# Requirements:
 
 1)Python 3.8
 
