@@ -1,6 +1,8 @@
 import os
+import sys
 import pyttsx3
 import random
+import subprocess
 print("Hello User")
 pyttsx3.speak("Hello User")
 while True:
@@ -8,6 +10,16 @@ while True:
     user=input("How can I help you:")
     if(("run" in user) or ("launch" in user) or ("open" in user)) and (("chrome" in user)or ("browser" in user)):
         site=input("What you want to search:")
+        if sys.platform == "linux" or sys.platform == "linux2":
+            q = "ls /usr/bin/ | grep google-chrome".split(" ")
+            check = subprocess.Popen(q , stdout=subprocess.PIPE , stderr=subprocess.STDOUT)
+            stdout,stderr = check.communicate()
+            check = subprocess.Popen(stdout[0] , stdout=subprocess.PIPE , stderr = subprocess.STDOUT)
+            stdout,stderr = check.communicate()
+        # elif sys.platform == "darwin":
+
+        # elif sys.platform == "win32":
+
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
         os.system('start chrome "www.google.com/search?q="'+site)
