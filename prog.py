@@ -1,6 +1,8 @@
 import os
+import sys
 import pyttsx3
 import random
+import subprocess
 print("Hello User")
 pyttsx3.speak("Hello User")
 while True:
@@ -9,6 +11,29 @@ while True:
     user = user.lower()
     if(("run" in user) or ("launch" in user) or ("open" in user)) and (("chrome" in user)or ("browser" in user)):
         site=input("What you want to search:")
+        if sys.platform == "linux" or sys.platform == "linux2":
+            q = "google-chrome" + 'www.google.com/search?q=' + site
+            try:
+                check = subprocess.Popen(q, stderr = subprocess.STDOUT, shell=True)
+            except Exception as e:
+                #s,ss = check.communicate()
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")            #stdout,stderr = check.communicate()
+        elif sys.platform == "darwin":
+            q = 'open -a \"Google Chrome\"' + 'www.google.com/search?q=' + site   
+            try:
+                check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
+            except Exception as e:
+                #s = check.stderr
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
+
+        elif sys.platform == "win32":
+            q = "start chrome " + 'www.google.com/search?q=' + site  
+            try:
+                check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
+            except Exception as e:
+                #s = check.stderr
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
+
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
         os.system('start chrome "www.google.com/search?q="'+site)
