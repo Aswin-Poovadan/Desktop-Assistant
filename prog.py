@@ -6,6 +6,7 @@ pyttsx3.speak("Hello User")
 while True:
     pyttsx3.speak("How can I help you:")
     user=input("How can I help you:")
+    user = user.lower()
     if(("run" in user) or ("launch" in user) or ("open" in user)) and (("chrome" in user)or ("browser" in user)):
         site=input("What you want to search:")
         pyttsx3.speak("Request Initiated")
@@ -64,6 +65,17 @@ while True:
             print(com)
             print("  Haha  Not this time")
             pyttsx3.speak("Haha  Not this time")
+    elif(("run" in user) or ("launch" in user) or ("open" in user)) and (("calculator" in user)or ("calc" in user)):
+        pyttsx3.speak("Request Initiated")
+        print("Request Initiated!!")
+        os.system('calc')
+    elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("calculator" in user)or ("calc" in user)):
+        pyttsx3.speak("Request Initiated")
+        print("Request Initiated!!")
+        try:
+            os.system("taskkill /f /im calculator.exe")
+        except:
+            print("There is some error on your system")
     elif(("exit" in user)or("quit" in user)or ("terminate"in user))and("program"):
         b="Ok Bye,See You later"
         print(b)
