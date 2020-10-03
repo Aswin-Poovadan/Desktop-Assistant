@@ -16,14 +16,14 @@ while True:
                 check = subprocess.Popen(q, stderr = subprocess.STDOUT, shell=True)
             except Exception as e:
                 #s,ss = check.communicate()
-            pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are statiesfied..!")            #stdout,stderr = check.communicate()
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")            #stdout,stderr = check.communicate()
         elif sys.platform == "darwin":
             q = 'open -a \"Google Chrome\"' + 'www.google.com/search?q=' + site   
             try:
                 check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
             except Exception as e:
                 #s = check.stderr
-                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are statiesfied..!")
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
 
         elif sys.platform == "win32":
             q = "start chrome " + 'www.google.com/search?q=' + site  
@@ -31,7 +31,7 @@ while True:
                 check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
             except Exception as e:
                 #s = check.stderr
-                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are statiesfied..!")
+                pyttsx3.speak("Sorry user . Check weather google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
 
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
