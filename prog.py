@@ -102,7 +102,7 @@ while True:
         elif sys.platform == 'win32':
             check = subprocess.Popen('calc', shell=True)
         elif sys.platform == 'darwin':
-            pyttsx3.speak('Mac users update this.!') # to update here mac users .
+            pyttsx3.speak('Mac users please update this.!') # to update here mac users .
             
     elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("calculator" in user)or ("calc" in user)):
         pyttsx3.speak("Request Initiated")
