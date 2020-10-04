@@ -93,7 +93,17 @@ while True:
     elif(("run" in user) or ("launch" in user) or ("open" in user)) and (("calculator" in user)or ("calc" in user)):
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
-        os.system('calc')
+        ## to Make Plateform independent, Added additional code .
+        if sys.platform == "linux" or sys.platform == "linux2":
+           try:
+               check = subprocess.Popen('gnome-calculator', shell=True)   # If any users other than gnome like KDE etc.. can update it for GUI calculator.
+           except Exception as e:
+               check = subprocess.Popen('bc', shell=True)
+        elif sys.platform == 'win32':
+            check = subprocess.Popen('calc', shell=True)
+        elif sys.platform == 'darwin':
+            pyttsx3.speak('Mac users update this.!') # to update here mac users .
+            
     elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("calculator" in user)or ("calc" in user)):
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
