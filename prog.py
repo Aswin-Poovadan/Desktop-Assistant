@@ -8,15 +8,20 @@ pyttsx3.speak("Hello User")
 while True:
     pyttsx3.speak("How can I help you:")
     user=input("How can I help you:")
-    user = user.lower()
+
+    # Remove any extra white spaces from user input.
+    user = user.strip().lower()
     if(("run" in user) or ("launch" in user) or ("open" in user)) and (("chrome" in user)or ("browser" in user)):
         site=input("What you want to search:")
+        site = site.strip()
+        
+        pyttsx3.speak('Request Initiated')
+        print('Request Initiated')
         if sys.platform == "linux" or sys.platform == "linux2":
-            q = "google-chrome" + 'www.google.com/search?q=' + site
+            q = "google-chrome " + f'www.google.com/search?q={site}'
             try:
                 check = subprocess.Popen(q, stderr = subprocess.STDOUT, shell=True)
             except Exception as e:
-                #s,ss = check.communicate()
                 pyttsx3.speak("Sorry user . Check whether google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")            #stdout,stderr = check.communicate()
         elif sys.platform == "darwin":
             q = 'open -a \"Google Chrome\"' + 'www.google.com/search?q=' + site   
@@ -34,9 +39,7 @@ while True:
                 #s = check.stderr
                 pyttsx3.speak("Sorry user . Check whether google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
 
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system('start chrome "www.google.com/search?q="'+site)
+        # os.system('start chrome "www.google.com/search?q="'+site)
     elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("chrome" in user)or ("browser"in user)):
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
@@ -120,7 +123,3 @@ while True:
         print("Sorry,couldn't get that,please try another command")
         pyttsx3.speak("Sorry,couldn't get that,please try another command")
 
-
-    
-
- 
