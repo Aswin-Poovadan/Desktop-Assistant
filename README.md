@@ -29,3 +29,10 @@ Initiative By IIEC RISE mentored by World Record Holder Mr.VimalDaga sir.
 
 2)pyttsx3 Module -You can install using the command 'pip install pyttsx3'.
 
+**NOTE**
+If program throws error even after installing the package, install __espeak__ in your system.
+This solution works only for __linux__ & __linux 2__ users. Find appropriate solutions for other operating systems.
+
+```
+sudo apt-get update && sudo apt-get install espeak
+```
