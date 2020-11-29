@@ -1,4 +1,4 @@
-# Python-ChatBot
+# Desktop-Assistant
 This is a program which perform actions on user text commands.
 
 
