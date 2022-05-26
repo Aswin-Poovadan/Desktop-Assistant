@@ -1,8 +1,11 @@
-import os
-import sys
-import pyttsx3
-import random
-import subprocess
+import os, sys, pyttsx3, random, subprocess
+
+run_commands = {"run", "launch", "open"}
+close_commands = {"close", "kill", "exit"}
+exit_program_keywords = {"terminate", 'quit', "exit"}
+
+linux = {"linux", 'linux2'}
+
 print("Hello User")
 pyttsx3.speak("Hello User")
 while True:
@@ -11,56 +14,93 @@ while True:
 
     # Remove any extra white spaces from user input.
     user = user.strip().lower()
-    if(("run" in user) or ("launch" in user) or ("open" in user)) and (("chrome" in user)or ("browser" in user)):
-        site=input("What you want to search:")
-        site = site.strip()
-        
-        pyttsx3.speak('Request Initiated')
-        print('Request Initiated')
-        if sys.platform == "linux" or sys.platform == "linux2":
-            q = "google-chrome " + f'www.google.com/search?q={site}'
+    cmd = user.split(' ')[0]
+
+    if cmd in run_commands:
+        if "chrome" in user or "browser" in user:
+
+            site=input("What you want to search:")
+            site = site.replace(' ', '+')
+
+            pyttsx3.speak('Request Initiated')
+            print('Request Initiated')
+            if sys.platform in linux:
+                q = "google-chrome " + f'www.google.com/search?q={site}'
+            elif sys.platform == "darwin":
+                q = 'open -a \"Google Chrome\"' + 'www.google.com/search?q=' + site   
+            elif sys.platform == "win32":
+                q = "start chrome " + 'www.google.com/search?q=' + site  
             try:
-                check = subprocess.Popen(q, stderr = subprocess.STDOUT, shell=True)
+                subprocess.Popen(q, stderr = subprocess.STDOUT, shell=True)
             except Exception as e:
                 pyttsx3.speak("Sorry user . Check whether google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")            #stdout,stderr = check.communicate()
-        elif sys.platform == "darwin":
-            q = 'open -a \"Google Chrome\"' + 'www.google.com/search?q=' + site   
-            try:
-                check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
-            except Exception as e:
-                #s = check.stderr
-                pyttsx3.speak("Sorry user . Check whether google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
+            finally:
+                continue
+        
+        if 'editor' in user or 'notepad' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            os.system('start notepad')
+            continue
+        
+        if 'paint' in user or 'draw' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            os.system('start mspaint')
+            continue
 
-        elif sys.platform == "win32":
-            q = "start chrome " + 'www.google.com/search?q=' + site  
-            try:
-                check = subprocess.Popen(q , stderr = subprocess.STDOUT, shell=True)
-            except Exception as e:
-                #s = check.stderr
-                pyttsx3.speak("Sorry user . Check whether google chrome is installed or not in your system. If it installed check the requirements are satisfied..!")
+        if 'calculator' in user or 'calc' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            ## to Make Plateform independent, Added additional code .
+            if sys.platform == "linux" or sys.platform == "linux2":
+                try:
+                    check = subprocess.Popen('gnome-calculator', shell=True)   # If any users other than gnome like KDE etc.. can update it for GUI calculator.
+                except Exception as e:
+                    check = subprocess.Popen('bc', shell=True)
+            elif sys.platform == 'win32':
+                check = subprocess.Popen('calc', shell=True)
+            elif sys.platform == 'darwin':
+                pyttsx3.speak('Mac users please update this.!') # to update here mac users .
+            continue
 
-        # os.system('start chrome "www.google.com/search?q="'+site)
-    elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("chrome" in user)or ("browser"in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system("taskkill /f /im chrome.exe")
-    elif (("run" in user) or ("launch" in user) or ("open" in user)) and (("editor" in user) or ("notepad" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system('start notepad')
-    elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("notepad" in user)or("editor" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system("taskkill /f /im notepad.exe")
-    elif (("run" in user) or ("launch" in user) or ("open" in user)) and (("paint" in user) or ("draw" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system('start mspaint')
-    elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("paint" in user)or("draw" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        os.system("taskkill /f /im mspaint.exe")
-    elif (("take" in user) or ("launch" in user) or ("open" in user)) and (("photo" in user) or ("camera" in user)or("selfie" in user)):
+    if cmd in close_commands:
+        if "chrome" in user or 'browser' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            os.system("taskkill /f /im chrome.exe")
+            continue
+            
+        if 'notepad' in user or 'editor' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            os.system("taskkill /f /im notepad.exe")
+            continue
+        
+        if 'paint' in user or 'draw' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            os.system("taskkill /f /im mspaint.exe")
+            continue
+        
+        if 'calculator' in user or 'calc' in user:
+            pyttsx3.speak("Request Initiated")
+            print("Request Initiated!!")
+            try:
+                os.system("taskkill /f /im calculator.exe")
+            except:
+                print("There is some error on your system")
+            finally:
+                continue
+    
+    if cmd in exit_program_keywords:
+        b="Ok Bye,See You later"
+        print(b)
+        pyttsx3.speak(b)
+        exit()
+
+
+    if (("take" in user) or ("launch" in user) or ("open" in user)) and (("photo" in user) or ("camera" in user)or("selfie" in user)):
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
         os.system('start microsoft.windows.camera:')
@@ -93,32 +133,6 @@ while True:
             print(com)
             print("  Haha  Not this time")
             pyttsx3.speak("Haha  Not this time")
-    elif(("run" in user) or ("launch" in user) or ("open" in user)) and (("calculator" in user)or ("calc" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        ## to Make Plateform independent, Added additional code .
-        if sys.platform == "linux" or sys.platform == "linux2":
-           try:
-               check = subprocess.Popen('gnome-calculator', shell=True)   # If any users other than gnome like KDE etc.. can update it for GUI calculator.
-           except Exception as e:
-               check = subprocess.Popen('bc', shell=True)
-        elif sys.platform == 'win32':
-            check = subprocess.Popen('calc', shell=True)
-        elif sys.platform == 'darwin':
-            pyttsx3.speak('Mac users please update this.!') # to update here mac users .
-            
-    elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("calculator" in user)or ("calc" in user)):
-        pyttsx3.speak("Request Initiated")
-        print("Request Initiated!!")
-        try:
-            os.system("taskkill /f /im calculator.exe")
-        except:
-            print("There is some error on your system")
-    elif(("exit" in user)or("quit" in user)or ("terminate"in user))and("program"):
-        b="Ok Bye,See You later"
-        print(b)
-        pyttsx3.speak(b)
-        break
     else:
         print("Sorry,couldn't get that,please try another command")
         pyttsx3.speak("Sorry,couldn't get that,please try another command")
