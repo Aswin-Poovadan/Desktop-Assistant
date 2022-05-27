@@ -4,7 +4,6 @@ run_commands = {"run", "launch", "open"}
 close_commands = {"close", "kill", "exit"}
 exit_program_keywords = {"terminate", 'quit', "exit"}
 camera_keywords = {"camera", "selfie", "photo"}
-
 linux = {"linux", 'linux2'}
 
 def main():
@@ -12,7 +11,6 @@ def main():
         pyttsx3.speak("How can I help you:")
         user=input("How can I help you:")
 
-        # Remove any extra white spaces from user input.
         user = user.strip().lower()
         cmd = user.split(' ')[0]
 
@@ -119,21 +117,35 @@ def main():
                 'The cricket match is cancelled because of rain :D'"
             print(a)
             pyttsx3.speak(a)
-        elif (("play" in user)or ("boring" in user))and (("game"in user)or ("coin" in user)or("heads"in user)or("tails" in user)):
+        elif (("play" in user)or ("boring" in user)) and (("game"in user)or ("coin" in user)or("heads"in user)or("tails" in user)):
             print("Lets Play Heads or Tails")
             pyttsx3.speak("Lets Play Head or Tail")
-            toss=input("Heads or Tails:")
-            pyttsx3.speak(toss)
             coins=["Heads","Tails"]
-            com=random.choice(coins)
-            if toss==com:
-                print("Bot:",com)
-                print("Aha you are good at this!")
-                pyttsx3.speak("Wow you are good at this")
-            else:
-                print(com)
-                print("  Haha  Not this time")
-                pyttsx3.speak("Haha  Not this time")
+            while True:
+                try:
+                    toss=input("Heads or Tails:")
+
+                    if not toss or toss not in coins:
+                        raise ValueError() 
+
+                    pyttsx3.speak(toss)
+                    com=random.choice(coins)
+                    if toss==com:
+                        print("Bot:",com)
+                        print("Aha you are good at this!")
+                        pyttsx3.speak("Wow you are good at this")
+                        continue
+                    print(com)
+                    print("  Haha  Not this time")
+                    pyttsx3.speak("Haha  Not this time")
+                except KeyboardInterrupt:
+                    break
+                except ValueError:
+                    print("[-] Error: Invalid value. Try again.")
+                    continue
+                except Exception as e:
+                    print(f"[-] Error: {e}")
+                    break
         else:
             print("Sorry,couldn't get that,please try another command")
             pyttsx3.speak("Sorry,couldn't get that,please try another command")
