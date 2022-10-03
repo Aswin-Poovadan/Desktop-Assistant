@@ -3,6 +3,7 @@ import sys
 import pyttsx3
 import random
 import subprocess
+import pyjokes
 print("Hello User")
 pyttsx3.speak("Hello User")
 while True:
@@ -72,12 +73,13 @@ while True:
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
         os.system('start time')
-    elif (("tell" in user) or ("say" in user) or ("random" in user)) and (("joke" in user)or("fun"in user)):
+    elif (("tell" in user) or ("say" in user) or ("random" in user) or ("getting" in user)) and (("joke" in user)or("fun"in user) or ("bored" in user) or ("something" in user)):
         print("This might make you laugh")
         pyttsx3.speak("This might make you laugh")
-        a="  Write an essay on cricket the teacher told the class, Chintu finishes his work in five minutes, The teacher is impressed,she asks Chintu to read his essay aloud for everyone.Chintu reads 'The cricket match is cancelled because of rain :D'"
-        print(a)
-        pyttsx3.speak(a)
+        My_joke = pyjokes.get_joke(language="en", category="neutral")
+        print("Joke for you: ", My_joke)
+        pyttsx3.speak(My_joke)
+
     elif (("play" in user)or ("boring" in user))and (("game"in user)or ("coin" in user)or("heads"in user)or("tails" in user)):
         print("Lets Play Heads or Tails")
         pyttsx3.speak("Lets Play Head or Tail")
@@ -106,7 +108,6 @@ while True:
             check = subprocess.Popen('calc', shell=True)
         elif sys.platform == 'darwin':
             pyttsx3.speak('Mac users please update this.!') # to update here mac users .
-            
     elif(("close" in user) or ("kill" in user) or ("exit" in user)) and (("calculator" in user)or ("calc" in user)):
         pyttsx3.speak("Request Initiated")
         print("Request Initiated!!")
