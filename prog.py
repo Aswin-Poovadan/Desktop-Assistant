@@ -3,6 +3,8 @@ import sys
 import pyttsx3
 import random
 import subprocess
+from playsound import playsound
+
 print("Hello User")
 pyttsx3.speak("Hello User")
 while True:
@@ -75,9 +77,23 @@ while True:
     elif (("tell" in user) or ("say" in user) or ("random" in user)) and (("joke" in user)or("fun"in user)):
         print("This might make you laugh")
         pyttsx3.speak("This might make you laugh")
-        a="  Write an essay on cricket the teacher told the class, Chintu finishes his work in five minutes, The teacher is impressed,she asks Chintu to read his essay aloud for everyone.Chintu reads 'The cricket match is cancelled because of rain :D'"
-        print(a)
-        pyttsx3.speak(a)
+        a = random.randint(0, 3)
+        lstOfJoke = ["  Write an essay on cricket the teacher told the class, Chintu finishes his work in five minutes, The teacher is impressed,she asks Chintu to read his essay aloud for everyone.Chintu reads 'The cricket match is cancelled because of rain :D'", "What kind of tea is hard to swallow? Reality! :D", "What do dentists call their x-rays? Tooth Pics!", "Stevie Said - 'Hey Mom! I got a 100 in school today!' Mom said - 'That's great! What in?' Stevie replied - 'A 40 in Reading and a 60 in spelling'"]
+        if a == 0:
+            print(lstOfJoke[0])
+            pyttsx3.speak(lstOfJoke[0])
+        elif a == 1:
+            print(lstOfJoke[1])
+            pyttsx3.speak(lstOfJoke[1])
+        elif a == 2:
+            print(lstOfJoke[2])
+            pyttsx3.speak(lstOfJoke[2])
+        elif a == 3:
+            print(lstOfJoke[3])
+            pyttsx3.speak(lstOfJoke[3])
+        playsound('Laughter.mp3')
+        
+
     elif (("play" in user)or ("boring" in user))and (("game"in user)or ("coin" in user)or("heads"in user)or("tails" in user)):
         print("Lets Play Heads or Tails")
         pyttsx3.speak("Lets Play Head or Tail")
